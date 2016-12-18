@@ -12,12 +12,12 @@ app.controller('SearchCtrl', function ($scope, $rootScope, $ionicPopup, $http, $
     });
 
   $scope.DeleteSubj = function (id) {
-    var confirmPopup = $ionicPopup.confirm({
+    var confrmPopup = $ionicPopup.confirm({
       title: 'Delete',
       template: 'Are you sure you want to delete this student?'
     });
 
-    confirmPopup.then(function(res) {
+    confrmPopup.then(function(res) {
       if(res) {
         $http.delete(base_url+'/students/' + id)
           .success(function(data){

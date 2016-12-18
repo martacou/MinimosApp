@@ -14,18 +14,26 @@ app.controller('SubjectsCtrl', function ($scope, $rootScope, $ionicPopup, $http,
       console.log('Error: ' + data);
     });
 
-  $scope.SubjectDetails = function (id) {
-    $state.go('tab.subject-detail');
-  }
-
   $scope.DeleteSubject = function (id) {
-    $http.delete(base_url+'/subjects/' + id)
-      .success(function(data){
-        $scope.subjects = data;
-      })
-      .error(function(data){
-        console.log('Error:' + data);
+    console.log("DeleteSubject");
+      console.log("popup");
+      var confirmPopup = $ionicPopup.confirm({
+        title: 'Delete',
+        template: 'Are you sure you want to delete this subject?'
       });
-  };
-
+      confirmPopup.then(function(res) {
+        if(res) {
+          console.log("confirm popup");
+          $http.delete(base_url+'/subjects/' + id)
+            .success(function(data){
+              $scope.subjects = data;
+            })
+            .error(function(data){
+              console.log('Error:' + data);
+            });
+        } else {
+          console.log('You are not sure');
+        }
+      });
+    };
 });
